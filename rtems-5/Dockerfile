@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make
 
 # rtems dependencies
-run apt-get install -y flex bison texinfo python-dev g++ unzip
+run apt-get install -y flex bison texinfo python3.8-dev g++ unzip libgmp-dev libmpfr-dev
 
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
@@ -13,15 +13,17 @@ run apt-get install -y qemu-system-i386
 # setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
-  && git clone -b 5.3 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
+  && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5.3/rtems-i386  \
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386  \
   || cp /path/to/rsb-report-i386-rtems5-gdb-14.2-x86_64-linux-gnu-1.txt /app/rsb-report.txt
+
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
   && git clone -b 5 git://git.rtems.org/rtems.git \
   && export PATH=$HOME/rtems-5/bin:$PATH \
   && cd rtems && ./bootstrap 
+
 # Build and install RTEMS pc686 BSP
 run cd ${HOME} \
   && mkdir b-pc686 \
