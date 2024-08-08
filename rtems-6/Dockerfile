@@ -20,7 +20,7 @@ copy rtems-6/config.ini /config.ini
 copy rtems-6/testbusy.c /testbusy.c
 
 # setup and compile RTEMS BSP
-# Git commits are from 13 May 2022
+# ERROR DOWNLOADING https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2 (404)
 run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
