@@ -34,23 +34,23 @@ jobs:
     steps:                     
       - name: Checkout code
         uses: actions/checkout@v2        
+          
+      - name: Build Docker image
+        id: build
+        run: |
+          docker build -f rtems-5/Dockerfile -t ghcr.io/arielswalker/qemu-rtems-5:latest .
 
-      - name: Build and Push 
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: qemu-rtems-5
-          dockerfile: rtems-5/Dockerfile
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          tags: latest
+      - name: Retrieve build logs
+        if: failure()
+        run: |
+          docker cp $(docker ps -q -f "ancestor=ghcr.io/arielswalker/qemu-rtems-5:latest"):/logs/sb-set-builder.log ./sb-set-builder.log || true
 
       - name: Upload build logs as artifact
         if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: build-logs
-          path: /logs/sb-set-builder.log
+          path: ./sb-set-builder.log
           
   build-rtems-4-11:      
       
