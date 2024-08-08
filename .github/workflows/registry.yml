@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build-logs
-          path: $HOME/rtems-5/sb-set-builder.log
+          path: logs/sb-set-builder.log
           
   build-rtems-4-11:      
       
