@@ -13,8 +13,7 @@ run apt-get install -y qemu-system-i386
 # setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-4.11 \
   && cd ${HOME} \
-  && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
-  && git checkout 4.11 \
+  && git clone -b 4.11 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check
 
