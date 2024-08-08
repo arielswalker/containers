@@ -13,16 +13,16 @@ run apt-get install -y qemu-system-i386
 # setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
-  && git clone -b 5 git://git.rtems.org/rtems-source-builder.git \
+  && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 \
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 
 # clone and bootstrap RTEMS source tree
-  && cd ${HOME} \
+run cd ${HOME} \
   && git clone -b 5 git://git.rtems.org/rtems.git \
   && export PATH=$HOME/rtems-5/bin:$PATH \
-  && cd rtems && ./bootstrap \
+  && cd rtems && ./bootstrap 
 # Build and install RTEMS pc686 BSP
-  && cd ${HOME} \
+run cd ${HOME} \
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems5 \
