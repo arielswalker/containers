@@ -23,17 +23,16 @@ run mkdir -p ${HOME}/rtems-4.11 \
 run cd ${HOME}/rtems-source-builder/rtems \
   && mkdir sources \
   && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-4.11 \
-                                   --jobs=none 4.11/rtems-i386
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-4.11 --jobs=none 4.11/rtems-i386
   
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
   && git clone -b 4.11 git://git.rtems.org/rtems.git \
   && export PATH=$HOME/rtems-4.11/bin:$PATH \
-  && cd rtems && ./bootstrap \
+  && cd rtems && ./bootstrap 
   
 # Build and install RTEMS pc686 BSP
-  && cd ${HOME} \
+run cd ${HOME} \
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems4.11 \
