@@ -27,7 +27,7 @@ run cd ${HOME}/rtems-source-builder/rtems \
                                    --jobs=none 4.11/rtems-i386
   
 # clone and bootstrap RTEMS source tree
-run cd ${HOME} 
+run cd ${HOME} \
   && git clone -b 4.11 git://git.rtems.org/rtems.git \
   && export PATH=$HOME/rtems-4.11/bin:$PATH \
   && cd rtems && ./bootstrap \
