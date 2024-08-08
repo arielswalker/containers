@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make
 
 # rtems dependencies
-run apt-get install -y flex bison texinfo python3.8-dev g++ unzip
+run apt-get install -y flex bison texinfo python-dev g++ unzip
 
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
