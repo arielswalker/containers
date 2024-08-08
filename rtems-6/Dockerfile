@@ -24,7 +24,8 @@ copy rtems-6/testbusy.c /testbusy.c
 run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
-  && cd rtems-source-builder/rtems 
+  && cd rtems-source-builder/rtems \
+  && ../source-builder/sb-check 
 
 # Download gnu mpc before source builder will fail to download it
 run cd home/rtems-source-builder/rtems \
