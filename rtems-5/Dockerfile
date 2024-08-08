@@ -25,7 +25,7 @@ run cd ${HOME}/rtems-source-builder/rtems \
 
 # Ensure logs are preserved and available
 run mkdir -p /logs \
-  && cp ${HOME}/rtems-5/sb-set-builder.log /logs/sb-set-builder.log
+  && cp ${HOME}/rtems-source-builder/rtems/sb-set-builder.log /logs/sb-set-builder.log
 
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
