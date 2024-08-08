@@ -24,7 +24,12 @@ copy rtems-6/testbusy.c /testbusy.c
 run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
-  && cd rtems-source-builder/rtems \
+  && cd rtems-source-builder/rtems 
+
+# Download gnu mpc before source builder will fail to download it
+run cd home/rtems-source-builder/rtems \
+  && mkdir sources \
+  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 
   
 # clone RTEMS source tree
