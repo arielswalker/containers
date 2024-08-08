@@ -15,8 +15,8 @@ run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386  \
-  || cp /path/to/rsb-report-i386-rtems5-gdb-14.2-x86_64-linux-gnu-1.txt /app/rsb-report.txt
+  && ../source-builder/sb-check \
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace
 
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
