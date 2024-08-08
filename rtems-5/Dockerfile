@@ -15,7 +15,12 @@ run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-check \
+  && ../source-builder/sb-check 
+
+# Download gnu mpc before source builder will fail to download it
+run cd ${HOME}/rtems-source-builder/rtems \
+  && mkdir sources \
+  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace  --always-clean
 
 # clone and bootstrap RTEMS source tree
