@@ -45,6 +45,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           tags: latest
 
+      - name: Upload build logs as artifact
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-logs
+          path: $HOME/rtems-5/sb-set-builder.log
+          
   build-rtems-4-11:      
       
       name: Build and Push qemu-rtems-4-11
