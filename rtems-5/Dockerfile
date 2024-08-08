@@ -16,7 +16,7 @@ run mkdir -p ${HOME}/rtems-5 \
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace  --always-clean
 
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
