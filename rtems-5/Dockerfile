@@ -21,7 +21,7 @@ run mkdir -p ${HOME}/rtems-5 \
 run cd ${HOME}/rtems-source-builder/rtems \
   && mkdir sources \
   && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace  --always-clean --log sb-set-builder.log || true \
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace  --always-clean --log sb-set-builder.log --with-target=i386-rtems5 || true \
   && cat sb-set-builder.log 
 
 # clone and bootstrap RTEMS source tree
