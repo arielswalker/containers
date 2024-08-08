@@ -21,25 +21,25 @@ copy rtems-6/testbusy.c /testbusy.c
 
 # setup and compile RTEMS BSP
 # Git commits are from 13 May 2022
-run mkdir -p ${HOME}/rtems-6 \
-  && cd ${HOME} \
+run mkdir -p home/rtems-6 \
+  && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
 #  && git checkout 620b6243 \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 \
 # clone RTEMS source tree
-  && cd ${HOME} \
+  && cd home \
   && git clone git://git.rtems.org/rtems.git \
   && export PATH=$HOME/rtems-6/bin:$PATH \
 # Build RTEMS BSP 
   && cd rtems \
   && git checkout 3ccfb583 \
   && mv /config.ini . \
-  && ./waf configure --prefix=${HOME}/rtems-6 \
+  && ./waf configure --prefix=home/rtems-6 \
   && ./waf \
   && ./waf install \
 # Get and build the legacy network stack
-  && cd ${HOME} \
+  && cd home \
   && git clone git://git.rtems.org/rtems-net-legacy.git \
   && cd rtems-net-legacy \
   && git checkout 1d492241 \
@@ -55,7 +55,7 @@ run tar -zxf git.tar.gz && rm git.tar.gz
 run cd git-* && make prefix=/usr/local && make prefix=/usr/local install
 
 # Delete unnecessary directories now that rtems is built
-run cd ${HOME} \
+run cd home \
   && rm -rf rtems-source-builder rtems rtems-net-legacy
 
 # Additional dependencies
