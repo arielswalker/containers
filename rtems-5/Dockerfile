@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make curl
 
 # rtems dependencies
-run apt-get install -y flex bison texinfo python3.8-dev g++ unzip libgmp-dev libmpfr-dev
+run apt-get install -y flex bison texinfo python-dev g++ unzip libgmp-dev libmpfr-dev
 
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
