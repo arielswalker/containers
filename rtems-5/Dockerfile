@@ -26,7 +26,7 @@ run cd ${HOME}/rtems-source-builder/rtems \
 
 # clone and bootstrap RTEMS source tree
 run cd ${HOME} \
-  && git clone -b 5 git://git.rtems.org/rtems.git \
+  && git clone -b 5 https://gitlab.rtems.org/rtems/rtos/rtems.git \
   && export PATH=$HOME/rtems-5/bin:$PATH \
   && cd rtems && ./bootstrap 
 
