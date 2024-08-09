@@ -16,7 +16,7 @@ run apt-get install -y qemu-system-i386
 # --target=i386-rtems5 and --with-target=i386-rtems5 did not fix the error 
 run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
-  && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
+  && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check 
 
