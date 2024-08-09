@@ -19,8 +19,6 @@ copy rtems-6/config.ini /config.ini
 # Temporary fix for legacy network stack
 copy rtems-6/testbusy.c /testbusy.c
 
-# setup and compile RTEMS BSP
-# ERROR DOWNLOADING https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2 (404)
 run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
@@ -29,8 +27,8 @@ run mkdir -p home/rtems-6 \
 
 # Download gnu mpc before source builder will fail to download it
 run cd home/rtems-source-builder/rtems \
-  && mkdir sources \
-  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
+#  && mkdir sources \
+#  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log || true \
   && cat sb-set-builder.log 
   
