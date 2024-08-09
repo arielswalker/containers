@@ -27,14 +27,11 @@ run mkdir -p home/rtems-6 \
 
 # Download gnu mpc before source builder will fail to download it
 run cd home/rtems-source-builder/rtems \
-#  && mkdir sources \
-#  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log || true \
-  && cat sb-set-builder.log 
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
   
 # clone RTEMS source tree
 run cd home \
-  && git clone git://git.rtems.org/rtems.git \
+  && git clone https://gitlab.rtems.org/rtems/rtos/rtems.git \
   && export PATH=$HOME/rtems-6/bin:$PATH 
   
 # Build RTEMS BSP 
