@@ -32,6 +32,9 @@ run mkdir -p home/rtems-6 \
 # gmp-6.3.0-x86_64-linux-gnu-1
 # https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2 -> sources/gmp-6.3.0.tar.bz2
 # download: https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2: error: <urlopen error [Errno 110] Connection timed out>
+run curl -I https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2
+
+
 # try to manually download gmp but the smallest version file which is tar.lz not tar.bz2 
 #run cd home/rtems-source-builder/rtems \
 #  && mkdir sources \
