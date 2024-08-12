@@ -5,7 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make curl iputils-ping
 
 # rtems dependencies
-run apt-get install -y flex bison texinfo python-dev g++ unzip
+# sb-set-builder throws ascii character if python3 isnt used
+run apt-get install -y flex bison texinfo python-dev python3 g++ unzip
 
 # Added: Python development package installation for RTEMS build dependencies
 run apt-get install -y python3-dev libpython3-dev
@@ -33,7 +34,7 @@ run cd home \
   && curl -I https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
   
 run cd home/rtems-source-builder/rtems \  
-  && ../source-builder/sb-set-builder --prefix=home/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
+  && python3 ../source-builder/sb-set-builder --prefix=home/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # clone RTEMS source tree
 run cd home \
