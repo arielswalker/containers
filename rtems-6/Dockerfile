@@ -31,7 +31,8 @@ run mkdir -p home/rtems-6 \
 # try same file from different website
  
 run cd home \
-  && curl -I https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
+  && curl -O https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
+
   
 run cd home/rtems-source-builder/rtems \  
   && python3 ../source-builder/sb-set-builder --prefix=home/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
