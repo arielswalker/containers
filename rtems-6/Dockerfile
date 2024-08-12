@@ -23,7 +23,7 @@ run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-check \
+  && ../source-builder/sb-check 
 
 # ERROR RUNNING sb-set-builder
 # Build Set: devel/gmp-internal.bset
