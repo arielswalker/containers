@@ -40,6 +40,7 @@ run mkdir -p home/rtems-6 \
 #  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
  
 run cd home \
+  && ping gmplib.org \
   && curl -I https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2
   
 run cd home/rtems-source-builder/rtems \  
