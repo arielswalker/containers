@@ -24,6 +24,7 @@ run mkdir -p home/rtems-6 \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check \
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # ERROR RUNNING sb-set-builder
 # Build Set: devel/gmp-internal.bset
@@ -35,7 +36,7 @@ run mkdir -p home/rtems-6 \
 #run cd home/rtems-source-builder/rtems \
 #  && mkdir sources \
 #  && curl https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz --output sources/gmp-6.3.0.tar.lz \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
+#  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
   
 # clone RTEMS source tree
 run cd home \
