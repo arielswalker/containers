@@ -2,7 +2,8 @@ from ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
-run apt-get update && apt-get install -y git make curl
+# configure: error: no acceptable cc found in $PATH when running make 
+run apt-get update && apt-get install -y git make curl gcc
 
 # rtems dependencies
 # error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python. need both python-dev and python3.8-dev
@@ -15,23 +16,24 @@ run apt-get install -y qemu-system-i386
 
 # setup and compile RTEMS BSP
 run mkdir -p home/rtems-5 \
-  && cd home\
+  && cd home \
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check 
 
 run cd home/rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
+  && ../source-builder/sb-set-builder --prefix=/home/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # clone and bootstrap RTEMS source tree
 run cd home\
   && git clone -b 5 https://gitlab.rtems.org/rtems/rtos/rtems.git \
-  && export PATH=$HOME/rtems-5/bin:$PATH \
+  && export PATH=/home/rtems-5/bin:$PATH \
   && cd rtems && ./bootstrap 
 
 # Build and install RTEMS pc686 BSP
 # error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5
-run cd home\
+run cd home \
+  && gcc --version
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems5 \
