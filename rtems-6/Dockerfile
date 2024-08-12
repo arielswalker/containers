@@ -23,7 +23,7 @@ run mkdir -p home/rtems-6 \
   && cd home \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-check 
+  && ../source-builder/sb-check \
 
 # ERROR RUNNING sb-set-builder
 # Build Set: devel/gmp-internal.bset
@@ -32,9 +32,9 @@ run mkdir -p home/rtems-6 \
 # https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2 -> sources/gmp-6.3.0.tar.bz2
 # download: https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2: error: <urlopen error [Errno 110] Connection timed out>
 # try to manually download gmp but the smallest version file which is tar.lz not tar.bz2 
-run cd home/rtems-source-builder/rtems \
-  && mkdir sources \
-  && curl https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz --output sources/gmp-6.3.0.tar.lz \
+#run cd home/rtems-source-builder/rtems \
+#  && mkdir sources \
+#  && curl https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz --output sources/gmp-6.3.0.tar.lz \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
   
 # clone RTEMS source tree
