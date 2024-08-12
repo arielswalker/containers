@@ -34,6 +34,8 @@ run cd home\
 # error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5
 run cd home \
   && gcc --version \
+  && echo $PATH \ 
+  && which gcc \
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems5 \
