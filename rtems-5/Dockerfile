@@ -15,7 +15,7 @@ run apt-get install -y qemu-system-i386
 # setup and compile RTEMS BSP
 # When checking out/cloning the 5 rtems-source-builder branch, there is an error when using sb-set-builder
 #2024-08-08T22:51:29.6122634Z #9 1492.8 _bset:   : 5/rtems-i386: 006: %error RTEMS version is not defined
-# --target=i386-rtems5 and --with-target=i386-rtems5 did not fix the error 
+#--with-target=i386-rtems5 did not fix the error 
 run mkdir -p home/rtems-5 \
   && cd home\
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
@@ -23,11 +23,12 @@ run mkdir -p home/rtems-5 \
   && ../source-builder/sb-check 
 
 # Download gnu mpc before source builder will fail to download it
+# Try without --target=i386-rtems5
 run cd home/rtems-source-builder/rtems \
   && mkdir sources \
   && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 --target=i386-rtems5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
-# || true \ && cat sb-set-builder.log 
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log || true \ 
+  && cat sb-set-builder.log 
 
 # clone and bootstrap RTEMS source tree
 run cd home\
