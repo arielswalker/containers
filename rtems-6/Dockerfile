@@ -2,7 +2,7 @@ from ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
-run apt-get update && apt-get install -y git make curl
+run apt-get update && apt-get install -y git make curl iputils-ping
 
 # rtems dependencies
 run apt-get install -y flex bison texinfo python-dev g++ unzip
