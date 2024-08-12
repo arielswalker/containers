@@ -20,12 +20,8 @@ run mkdir -p home/rtems-5 \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check 
 
-# Download gnu mpc before source builder will fail to download it
-# Try without curl   && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
 run cd home/rtems-source-builder/rtems \
-  && mkdir sources \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log || true \ 
-  && cat sb-set-builder.log 
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # clone and bootstrap RTEMS source tree
 run cd home\
@@ -34,12 +30,13 @@ run cd home\
   && cd rtems && ./bootstrap 
 
 # Build and install RTEMS pc686 BSP
+# error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5
 run cd home\
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems5 \
     --enable-rtemsbsp=pc686 \
-    --prefix=home/rtems-5 \
+    --prefix=/home/rtems-5 \
     --enable-networking \
     --enable-cxx \
     --disable-posix \
