@@ -45,7 +45,7 @@ run cd home \
   && export PATH=home/rtems-6/bin:$PATH 
   
 # Build RTEMS BSP 
-run cd rtems \
+run cd home/rtems \
   && git checkout 3ccfb583 \
   && mv /config.ini . \
   && ./waf configure --prefix=home/rtems-6 \
