@@ -30,7 +30,9 @@ run mkdir -p home/rtems-6 \
 # that file is downloaded during sb-set-builder
 # try same file from different website
  
-run cd home \
+run cd home/rtems-source-builder/rtems \
+  && mkdir sources \ 
+  && cd sources \
   && curl -O https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
 
   
