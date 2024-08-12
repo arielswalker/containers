@@ -5,7 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make curl
 
 # rtems dependencies
-# error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python.
+# error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python. need both python-dev and python3.8-dev
+# without python-dev - rtems source builder does not build due to %error RTEMS version is not defined
 # sb-set-builder log says env needs gmp 4.2+ and mpfr 3.1.0+ 
 run apt-get install -y flex bison texinfo python-dev g++ unzip libgmp-dev libmpfr-dev python3.8-dev
 
@@ -13,9 +14,6 @@ run apt-get install -y flex bison texinfo python-dev g++ unzip libgmp-dev libmpf
 run apt-get install -y qemu-system-i386
 
 # setup and compile RTEMS BSP
-# When checking out/cloning the 5 rtems-source-builder branch, there is an error when using sb-set-builder
-#2024-08-08T22:51:29.6122634Z #9 1492.8 _bset:   : 5/rtems-i386: 006: %error RTEMS version is not defined
-#--with-target=i386-rtems5 did not fix the error 
 run mkdir -p home/rtems-5 \
   && cd home\
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
@@ -23,10 +21,9 @@ run mkdir -p home/rtems-5 \
   && ../source-builder/sb-check 
 
 # Download gnu mpc before source builder will fail to download it
-# Try without --target=i386-rtems5
+# Try without curl   && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
 run cd home/rtems-source-builder/rtems \
   && mkdir sources \
-  && curl https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz --output sources/mpc-1.0.3.tar.gz \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log || true \ 
   && cat sb-set-builder.log 
 
