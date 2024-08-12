@@ -44,7 +44,9 @@ run cd home\
     --enable-cxx \
     --disable-posix \
     --disable-deprecated \
-  && make \
+  && make 
+
+run cd home\b-pc686 \
   && make install
 
 # install git from source for updated version
