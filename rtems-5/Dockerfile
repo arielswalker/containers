@@ -22,12 +22,12 @@ run mkdir -p ${HOME}/rtems-5 \
   && ../source-builder/sb-check 
 
 run cd ${HOME}/rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=${HOME}/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # clone and bootstrap RTEMS source tree
 run cd ${HOME}\
   && git clone -b 5 https://gitlab.rtems.org/rtems/rtos/rtems.git \
-  && export PATH=${HOME}/rtems-5/bin:$PATH \
+  && export PATH=$HOME/rtems-5/bin:$PATH \
   && cd rtems && ./bootstrap 
 
 # Build and install RTEMS pc686 BSP
