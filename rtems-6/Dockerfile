@@ -6,7 +6,7 @@ run apt-get update && apt-get install -y git make curl iputils-ping
 
 # rtems dependencies
 # sb-set-builder throws ascii character if python3 isnt used
-run apt-get install -y flex bison texinfo python-dev python3 g++ unzip
+run apt-get install -y flex bison texinfo python-dev python3 g++ unzip apt-utils build-essential
 
 # Added: Python development package installation for RTEMS build dependencies
 run apt-get install -y python3-dev libpython3-dev
