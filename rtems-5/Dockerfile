@@ -19,21 +19,16 @@ run mkdir -p ${HOME}/rtems-5 \
   && cd ${HOME} \
   && git clone -b 5 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-check 
-
-run cd ${HOME}/rtems-source-builder/rtems \
-  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log 
-
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-5 5/rtems-i386 --trace --always-clean --log sb-set-builder.log \
 # clone and bootstrap RTEMS source tree
-run cd ${HOME}\
+  && cd ${HOME} \
   && git clone -b 5 https://gitlab.rtems.org/rtems/rtos/rtems.git \
   && export PATH=$HOME/rtems-5/bin:$PATH \
-  && cd rtems && ./bootstrap 
-
-# Build and install RTEMS pc686 BSP
-# error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5 in gitlab
-run cd ${HOME} \
+  && cd rtems && ./bootstrap \
+# Build and install RTEMS pc686 BSP error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5 in gitlab
+  && cd ${HOME} \
   && gcc --version \
+  && echo path \
   && echo $PATH \ 
   && echo 1 \
   && ls $HOME/rtems-5/bin/i386-rtems5-gcc \
@@ -46,6 +41,7 @@ run cd ${HOME} \
   && which gcc \
   && mkdir b-pc686 \
   && cd b-pc686 \
+  && rm -rf config.cache \
   && ../rtems/configure --target=i386-rtems5 \
     --enable-rtemsbsp=pc686 \
     --prefix=$HOME/rtems-5 \
@@ -53,9 +49,7 @@ run cd ${HOME} \
     --enable-cxx \
     --disable-posix \
     --disable-deprecated \
-  && make 
-
-run cd ${HOME}\b-pc686 \
+  && make \
   && make install
 
 # install git from source for updated version
