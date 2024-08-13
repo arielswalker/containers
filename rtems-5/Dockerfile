@@ -35,12 +35,16 @@ run cd ${HOME}\
 run cd ${HOME} \
   && gcc --version \
   && echo $PATH \ 
+  && which i386-rtems5-gcc \
+  && ls $HOME/rtems-5/bin/i386-rtems5-gcc \
+  && ls $HOME/rtems-5/bin \
+  && chmod +x $HOME/rtems-5/bin/i386-rtems5-gcc \
   && which gcc \
   && mkdir b-pc686 \
   && cd b-pc686 \
   && ../rtems/configure --target=i386-rtems5 \
     --enable-rtemsbsp=pc686 \
-    --prefix=${HOME}/rtems-5 \
+    --prefix=$HOME/rtems-5 \
     --enable-networking \
     --enable-cxx \
     --disable-posix \
