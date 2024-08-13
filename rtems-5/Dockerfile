@@ -2,14 +2,13 @@ from ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
-# configure: error: no acceptable cc found in $PATH when running make 
-run apt-get update && apt-get install -y git make curl gcc
+run apt-get update && apt-get install -y git make curl 
 
 # rtems dependencies
 # error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python. need both python-dev and python3.8-dev
 # without python-dev - rtems source builder does not build due to %error RTEMS version is not defined
-# sb-set-builder log says env needs gmp 4.2+ and mpfr 3.1.0+ 
-run apt-get install -y flex bison texinfo python-dev g++ unzip libgmp-dev libmpfr-dev python3.8-dev
+# sb-set-builder log says env needs gmp 4.2+ and mpfr 3.1.0+ libgmp-dev libmpfr-dev python3.8-dev
+run apt-get install -y flex bison texinfo python-dev g++ unzip 
 
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
@@ -27,18 +26,6 @@ run mkdir -p ${HOME}/rtems-5 \
   && cd rtems && ./bootstrap \
 # Build and install RTEMS pc686 BSP error: expected an absolute directory name for --prefix: home/rtems-5 use /home/rtems-5 in gitlab
   && cd ${HOME} \
-  && gcc --version \
-  && echo path \
-  && echo $PATH \ 
-  && echo 1 \
-  && ls $HOME/rtems-5/bin/i386-rtems5-gcc \
-  && echo 2 \
-  && ls $HOME/rtems-5/bin \
-  && echo 3 \
-  && chmod +x $HOME/rtems-5/bin/i386-rtems5-gcc \
-  && echo 4 \
-  && file $HOME/rtems-5/bin/i386-rtems5-gcc \
-  && which gcc \
   && mkdir b-pc686 \
   && cd b-pc686 \
   && rm -rf config.cache \
