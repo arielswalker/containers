@@ -48,8 +48,8 @@ run cd ${HOME} \
 run cd ${HOME}/rtems \
   && git checkout 3ccfb583 \
   && mv /config.ini . \
-  && ./waf configure --prefix=$HOME/rtems-6 \
-  && ./waf \
+  && ./waf configure --prefix=$HOME/rtems-6 --verbose \
+  && ./waf --verbose \
   && ./waf install 
   
 # Get and build the legacy network stack
