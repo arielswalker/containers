@@ -35,7 +35,6 @@ run cd ${HOME}\
 run cd ${HOME} \
   && gcc --version \
   && echo $PATH \ 
-  && which i386-rtems5-gcc \
   && ls $HOME/rtems-5/bin/i386-rtems5-gcc \
   && ls $HOME/rtems-5/bin \
   && chmod +x $HOME/rtems-5/bin/i386-rtems5-gcc \
