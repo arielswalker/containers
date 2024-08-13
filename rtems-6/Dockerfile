@@ -14,14 +14,14 @@ run apt-get install -y python3-dev libpython3-dev
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
 
-# Copy config.ini file - Note that the environment variable HOME will not work here
+# Copy config.ini file - Note that the environment variable ${HOME} will not work here
 copy rtems-6/config.ini /config.ini
 
 # Temporary fix for legacy network stack
 copy rtems-6/testbusy.c /testbusy.c
 
-run mkdir -p home/rtems-6 \
-  && cd home \
+run mkdir -p ${HOME}/rtems-6 \
+  && cd ${HOME} \
   && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-check 
@@ -30,36 +30,36 @@ run mkdir -p home/rtems-6 \
 # that file is downloaded during sb-set-builder
 # try same file from different website
  
-run cd home/rtems-source-builder/rtems \
+run cd ${HOME}/rtems-source-builder/rtems \
   && mkdir sources \ 
   && cd sources \
   && curl -O https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
 
   
-run cd home/rtems-source-builder/rtems \  
-  && python3 ../source-builder/sb-set-builder --prefix=home/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
+run cd ${HOME}/rtems-source-builder/rtems \  
+  && python3 ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
 
 # clone RTEMS source tree
-run cd home \
+run cd ${HOME} \
   && git clone https://gitlab.rtems.org/rtems/rtos/rtems.git \
-  && export PATH=home/rtems-6/bin:$PATH 
+  && export PATH=$HOME/rtems-6/bin:$PATH 
   
 # Build RTEMS BSP 
-run cd home/rtems \
+run cd ${HOME}/rtems \
   && git checkout 3ccfb583 \
   && mv /config.ini . \
-  && ./waf configure --prefix=home/rtems-6 \
+  && ./waf configure --prefix=$HOME/rtems-6 \
   && ./waf \
   && ./waf install 
   
 # Get and build the legacy network stack
-run cd home \
+run cd ${HOME} \
   && git clone git://git.rtems.org/rtems-net-legacy.git \
   && cd rtems-net-legacy \
   && git checkout 1d492241 \
   && git submodule update --init \
   && mv /testbusy.c libtest/testbusy.c \
-  && ./waf configure --prefix=$HOME/rtems-6 \
+  && ./waf configure --prefix=$${HOME}/rtems-6 \
   && ./waf build install 
  
 # install git from source for updated version
@@ -69,7 +69,7 @@ run tar -zxf git.tar.gz && rm git.tar.gz
 run cd git-* && make prefix=/usr/local && make prefix=/usr/local install
 
 # Delete unnecessary directories now that rtems is built
-run cd home \
+run cd ${HOME} \
   && rm -rf rtems-source-builder rtems rtems-net-legacy
 
 # Additional dependencies
