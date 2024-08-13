@@ -35,9 +35,14 @@ run cd ${HOME}\
 run cd ${HOME} \
   && gcc --version \
   && echo $PATH \ 
+  && echo 1 \
   && ls $HOME/rtems-5/bin/i386-rtems5-gcc \
+  && echo 2 \
   && ls $HOME/rtems-5/bin \
+  && echo 3 \
   && chmod +x $HOME/rtems-5/bin/i386-rtems5-gcc \
+  && echo 4 \
+  && file $HOME/rtems-5/bin/i386-rtems5-gcc \
   && which gcc \
   && mkdir b-pc686 \
   && cd b-pc686 \
