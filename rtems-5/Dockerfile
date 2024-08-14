@@ -5,10 +5,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make curl 
 
 # rtems dependencies
-# error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python. need both python-dev and python3.8-dev
+# need python3.8-dev - see error below
+# config: tools/rtems-gdb-14.2.cfg
+# error: config error: gdb-common-1.cfg:123: "gdb: python: header file not found: python3.8/Python. 
 # without python-dev - rtems source builder does not build due to %error RTEMS version is not defined
 # sb-set-builder log says env needs gmp 4.2+ and mpfr 3.1.0+ libgmp-dev libmpfr-dev python3.8-dev
-run apt-get install -y flex bison texinfo python-dev g++ unzip 
+run apt-get install -y flex bison texinfo python-dev g++ unzip python3.8-dev
 
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
