@@ -21,6 +21,9 @@ RUN apt-get update && apt-get install -y \
     libtinfo-dev \
     libssl-dev
 
+# Set environment variables for shared libraries
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+ENV LD_RUN_PATH=/usr/local/lib:$LD_RUN_PATH
 
 RUN gcc --version
 
