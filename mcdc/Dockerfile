@@ -1,8 +1,23 @@
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Basic dependencies
-RUN apt-get update && apt-get install -y make wget build-essential
+# Install essential dependencies required to build GCC
+RUN apt-get update && apt-get install -y \
+    wget \
+    make \
+    build-essential \
+    libgmp-dev \
+    libmpfr-dev \
+    libmpc-dev \
+    zlib1g-dev \
+    flex \
+    bison \
+    libc6-dev \
+    autoconf \
+    automake \
+    libtool \
+    pkg-config
+
 
 RUN gcc --version
 
@@ -21,7 +36,7 @@ RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /gcc-14.1.0
 
-# Set the PATH to prioritize GCC 14.1.0, ensuring it is used for compilation and gcov analysis.
+# Add newly installed GCC to the PATH
 RUN echo "export PATH=/usr/local/gcc-14.1.0/bin:$PATH" >> ~/.bashrc
 
 RUN gcc --version
