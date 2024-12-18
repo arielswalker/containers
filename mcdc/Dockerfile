@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y \
     autoconf \
     automake \
     libtool \
-    pkg-config
+    pkg-config \
+    libncurses-dev \
+    libtinfo-dev \
+    libssl-dev
 
 
 RUN gcc --version
