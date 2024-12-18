@@ -1,8 +1,12 @@
-from ubuntu:20.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
-run apt-get update && apt-get install -y make wget
+RUN apt-get update && apt-get install -y make wget build-essential
+
+RUN gcc --version
+
+RUN which gcc
 
 # Install GCC 14 from source if it's not available in PPA
 RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
@@ -19,3 +23,7 @@ RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
 
 # Set the PATH to prioritize GCC 14.1.0, ensuring it is used for compilation and gcov analysis.
 RUN echo "export PATH=/usr/local/gcc-14.1.0/bin:$PATH" >> ~/.bashrc
+
+RUN gcc --version
+
+RUN which gcc
