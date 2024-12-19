@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Step 1: Install dependencies needed for building GCC
+# Install dependencies needed for building GCC
 RUN apt-get update && apt-get install -y \
     build-essential \
     libgmp-dev \
@@ -14,14 +14,14 @@ RUN apt-get update && apt-get install -y \
     make \
     && rm -rf /var/lib/apt/lists/*
 
-# Step 2: Configure dynamic linker to include /usr/local/lib (for GCC libraries)
+# Configure dynamic linker to include /usr/local/lib (for GCC libraries)
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/gcc.conf && ldconfig
 
 RUN gcc --version
 
 RUN which gcc
 
-# Step 3: Download and build GCC
+# Download and build GCC
 RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
     tar -xf gcc-14.1.0.tar.gz && \
     cd gcc-14.1.0 && \
@@ -34,8 +34,8 @@ RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /gcc-14.1.0
 
-# Add newly installed GCC to the PATH
-RUN echo "export PATH=/usr/local/gcc-14.1.0/bin:$PATH" >> ~/.bashrc
+# Set the GCC binary path globally for the build process
+ENV PATH=/usr/local/gcc-14.1.0/bin:$PATH
 
 RUN gcc --version
 
