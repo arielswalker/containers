@@ -12,14 +12,14 @@ RUN apt-get update && apt-get install -y \
     gcc \
     g++ \
     make \
+    git \
+    cmake \
+    lcov \
+    python3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure dynamic linker to include /usr/local/lib (for GCC libraries)
 RUN echo "/usr/local/lib" > /etc/ld.so.conf.d/gcc.conf && ldconfig
-
-RUN gcc --version
-
-RUN which gcc
 
 # Download and build GCC
 RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
@@ -36,7 +36,3 @@ RUN wget http://ftp.gnu.org/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz && \
 
 # Set the GCC binary path globally for the build process
 ENV PATH=/usr/local/gcc-14.1.0/bin:$PATH
-
-RUN gcc --version
-
-RUN which gcc
