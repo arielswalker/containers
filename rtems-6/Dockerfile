@@ -2,11 +2,13 @@ from ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
-run apt-get update && apt-get install -y git make curl iputils-ping
+run apt-get update && apt-get install -y git make
 
 # rtems dependencies
-# sb-set-builder throws ascii character if python3 isnt used
-run apt-get install -y flex bison texinfo python-dev python3 g++ unzip apt-utils build-essential libbsd-dev
+run apt-get install -y flex bison texinfo python3-dev g++ unzip libgmp-dev libmpfr-dev bzip2 xz-utils
+
+# Make python3 the default python
+run ln -s /usr/bin/python3 /usr/bin/python
 
 # Added: Python development package installation for RTEMS build dependencies
 run apt-get install -y python3-dev libpython3-dev
@@ -14,53 +16,36 @@ run apt-get install -y python3-dev libpython3-dev
 # QEMU dependencies
 run apt-get install -y qemu-system-i386
 
-# Copy config.ini file - Note that the environment variable ${HOME} will not work here
+# Copy config.ini file - Note that the environment variable HOME will not work here
 copy rtems-6/config.ini /config.ini
 
 # Temporary fix for legacy network stack
 copy rtems-6/testbusy.c /testbusy.c
 
+# Setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
-  && git clone https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
+  && git clone -b 6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
-  && ../source-builder/sb-check 
-
-# cannot access https://gmplib.org/download/gmp/gmp-6.3.0.tar.lz - curl: (28) Failed to connect to gmplib.org port 443: Connection timed out
-# that file is downloaded during sb-set-builder
-# try same file from different website
- 
-run cd ${HOME}/rtems-source-builder/rtems \
-  && mkdir sources \ 
-  && cd sources \
-  && curl -O https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.bz2
-
-  
-run cd ${HOME}/rtems-source-builder/rtems \  
-  && python3 ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 --trace --always-clean --log sb-set-builder.log 
-
+  && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 \
 # clone RTEMS source tree
-run cd ${HOME} \
-  && git clone https://gitlab.rtems.org/rtems/rtos/rtems.git \
-  && export PATH=$HOME/rtems-6/bin:$PATH 
-  
+  && cd ${HOME} \
+  && git clone -b 6 https://gitlab.rtems.org/rtems/rtos/rtems.git \
+  && export PATH=$HOME/rtems-6/bin:$PATH \
 # Build RTEMS BSP 
-run cd ${HOME}/rtems \
-  && git checkout 3ccfb583 \
+  && cd rtems \
   && mv /config.ini . \
-  && ./waf configure --prefix=$HOME/rtems-6 --verbose \
-  && ./waf --verbose \
-  && ./waf install 
-  
+  && ./waf configure --prefix=${HOME}/rtems-6 \
+  && ./waf \
+  && ./waf install \
 # Get and build the legacy network stack
-run cd ${HOME} \
-  && git clone git://git.rtems.org/rtems-net-legacy.git \
+  && cd ${HOME} \
+  && git clone -b 6 https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git \
   && cd rtems-net-legacy \
-  && git checkout 1d492241 \
   && git submodule update --init \
   && mv /testbusy.c libtest/testbusy.c \
-  && ./waf configure --prefix=$${HOME}/rtems-6 \
-  && ./waf build install 
+  && ./waf configure --prefix=$HOME/rtems-6 \
+  && ./waf build install
  
 # install git from source for updated version
 run apt-get install -y libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext cmake
