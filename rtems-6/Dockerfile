@@ -49,8 +49,8 @@ run cd ${HOME}/rtems \
   && mv /config.ini . \
 # Fix: https://github.com/arielswalker/containers/actions/runs/14318407530/job/40129780629
 # undefined reference to `sigaction'
-# added "--enable-posix"
-  && ./waf configure --prefix=${HOME}/rtems-6 --enable-posix \
+# "--enable-posix" not a valid option: https://github.com/arielswalker/containers/actions/runs/14319126454/job/40132046952
+  && ./waf configure --prefix=${HOME}/rtems-6 \
   && ./waf \
   && ./waf install 
   
