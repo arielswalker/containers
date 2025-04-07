@@ -22,6 +22,8 @@ copy rtems-6/config.ini /config.ini
 # Temporary fix for legacy network stack
 copy rtems-6/testbusy.c /testbusy.c
 
+run apt-get install -y libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext cmake
+
 # Setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
@@ -29,7 +31,7 @@ run mkdir -p ${HOME}/rtems-6 \
   && cd rtems-source-builder/rtems \
 # Fix: https://github.com/arielswalker/containers/actions/runs/14314544372/attempts/1
 # error: downloading https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2: all paths have failed, giving up  
-  && curl -O https://libisl.sourceforge.io/isl-0.24.tar.bz2 \
+  && curl -o https://libisl.sourceforge.io/isl-0.24.tar.bz2 \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 
   
 # clone RTEMS source tree
@@ -54,7 +56,6 @@ run cd ${HOME} \
   && ./waf build install
  
 # install git from source for updated version
-run apt-get install -y libz-dev libssl-dev libcurl4-gnutls-dev libexpat1-dev gettext cmake
 run curl -o git.tar.gz https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.26.2.tar.gz
 run tar -zxf git.tar.gz && rm git.tar.gz
 run cd git-* && make prefix=/usr/local && make prefix=/usr/local install
