@@ -47,9 +47,6 @@ run cd ${HOME} \
 # Build RTEMS BSP 
 run cd ${HOME}/rtems \
   && mv /config.ini . \
-# Fix: https://github.com/arielswalker/containers/actions/runs/14318407530/job/40129780629
-# undefined reference to `sigaction'
-# "--enable-posix" not a valid option: https://github.com/arielswalker/containers/actions/runs/14319126454/job/40132046952
   && ./waf configure --prefix=${HOME}/rtems-6 \
   && ./waf \
   && ./waf install 
@@ -60,7 +57,10 @@ run cd ${HOME} \
   && cd rtems-net-legacy \
   && git submodule update --init \
   && mv /testbusy.c libtest/testbusy.c \
-  && ./waf configure --prefix=$HOME/rtems-6 \
+# Fix: https://github.com/arielswalker/containers/actions/runs/14318407530/job/40129780629
+# undefined reference to `sigaction'
+# "--enable-posix" not a valid option: https://github.com/arielswalker/containers/actions/runs/14319126454/job/40132046952
+  && ./waf configure --prefix=$HOME/rtems-6 --enable-posix \
   && ./waf build install
  
 # install git from source for updated version
