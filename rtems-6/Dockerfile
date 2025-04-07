@@ -27,6 +27,9 @@ run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
   && git clone -b 6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
+# Fix: https://github.com/arielswalker/containers/actions/runs/14314544372/attempts/1
+# error: downloading https://gcc.gnu.org/pub/gcc/infrastructure/isl-0.24.tar.bz2: all paths have failed, giving up  
+  && curl -O https://libisl.sourceforge.io/isl-0.24.tar.bz2 \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 
   
 # clone RTEMS source tree
