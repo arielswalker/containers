@@ -35,6 +35,7 @@ run mkdir -p ${HOME}/rtems-6 \
   && tar -xjf isl-0.24.tar.bz2 \
 # Fix: https://github.com/arielswalker/containers/actions/runs/14316532850/job/40123858984
 # error: downloading https://sourceware.org/bugzilla/attachment.cgi?id=14783&format=raw: all paths have failed, giving up
+  && ls \
   && sed -i '/%patch add gdb -p1 --rsb-file=gdb-14067-python-config.diff https:\/\/sourceware.org\/bugzilla\/attachment.cgi?id=14783&format=raw/,/%hash sha512 gdb-14067-python-config.diff/d' /config/tools/rtems-gdb-15.2.cfg \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 
   
