@@ -28,16 +28,19 @@ run mkdir -p ${HOME}/rtems-6 \
   && git clone -b 6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386 
+  
 # clone RTEMS source tree
 run cd ${HOME} \
   && git clone -b 6 https://gitlab.rtems.org/rtems/rtos/rtems.git \
   && export PATH=$HOME/rtems-6/bin:$PATH 
+  
 # Build RTEMS BSP 
-run cd rtems \
+run cd ${HOME}/rtems \
   && mv /config.ini . \
   && ./waf configure --prefix=${HOME}/rtems-6 \
   && ./waf \
   && ./waf install 
+  
 # Get and build the legacy network stack
 run cd ${HOME} \
   && git clone -b 6 https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git \
