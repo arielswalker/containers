@@ -1,5 +1,5 @@
 from ubuntu:22.04
-ENV DEBIAN_FRONTEND=noninteractive
+env DEBIAN_FRONTEND=noninteractive
 
 # Basic dependencies
 run apt-get update && apt-get install -y git make
