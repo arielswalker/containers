@@ -25,12 +25,12 @@ copy rtems-6/testbusy.c /testbusy.c
 # Setup and compile RTEMS BSP
 run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
-  && git clone -b 6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
+  && git clone -b base/6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   && cd rtems-source-builder/rtems \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386
 # clone RTEMS source tree
 run cd ${HOME} \
-  && git clone -b 6 https://gitlab.rtems.org/rtems/rtos/rtems.git \
+  && git clone -b base/6 https://gitlab.rtems.org/rtems/rtos/rtems.git \
   && export PATH=$HOME/rtems-6/bin:$PATH \
 # Build RTEMS BSP 
   && cd rtems \
@@ -40,7 +40,7 @@ run cd ${HOME} \
   && ./waf install
 # Get and build the legacy network stack
 run cd ${HOME} \
-  && git clone -b 6 https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git \
+  && git clone -b base/6 https://gitlab.rtems.org/rtems/pkg/rtems-net-legacy.git \
   && cd rtems-net-legacy \
   && git submodule update --init \
   && mv /testbusy.c libtest/testbusy.c \
