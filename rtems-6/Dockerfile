@@ -26,7 +26,10 @@ copy rtems-6/testbusy.c /testbusy.c
 run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
   && git clone -b base/6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
-  && cd rtems-source-builder/rtems \
+  # Fix error: downloading https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2: all paths have failed, giving up
+  && cd rtems-source-builder/sources \
+  && curl -LO https://gmplib.org/download/gmp-6.3.0/gmp-6.3.0.tar.bz2 \
+  && cd ../rtems \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386
 # clone RTEMS source tree
 run cd ${HOME} \
