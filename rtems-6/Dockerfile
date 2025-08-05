@@ -5,7 +5,7 @@ env DEBIAN_FRONTEND=noninteractive
 run apt-get update && apt-get install -y git make
 
 # rtems dependencies
-run apt-get install -y flex bison texinfo python3-dev g++ unzip libgmp-dev libmpfr-dev bzip2 xz-utils
+run apt-get install -y flex bison texinfo python3-dev g++ unzip libgmp-dev libmpfr-dev bzip2 xz-utils libmpc-dev
 
 # Make python3 the default python
 run ln -s /usr/bin/python3 /usr/bin/python
@@ -27,9 +27,7 @@ run mkdir -p ${HOME}/rtems-6 \
   && cd ${HOME} \
   && git clone -b base/6 https://gitlab.rtems.org/rtems/tools/rtems-source-builder.git \
   # Fix error: downloading https://gmplib.org/download/gmp/gmp-6.3.0.tar.bz2: all paths have failed, giving up
-  && cd rtems-source-builder/sources \
-  && curl -LO https://gmplib.org/download/gmp-6.3.0/gmp-6.3.0.tar.bz2 \
-  && cd ../rtems \
+  && cd rtems-source-builder/rtems \
   && ../source-builder/sb-set-builder --prefix=$HOME/rtems-6 6/rtems-i386
 # clone RTEMS source tree
 run cd ${HOME} \
